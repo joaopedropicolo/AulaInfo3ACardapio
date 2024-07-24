@@ -31,14 +31,42 @@ const [listaProdutos, setProdutos] = useState([
     },
 ]);
 
+const [ListaPedidos, setListaPedidos] = useState([])
+
+const adicionarProduto = (produto) => {
+    setListaPedidos([...ListaPedidos, produto]);
+}
+console.table(ListaPedidos)
     return (
-       <div>
-            {listaProdutos.map((objeto)=>
-                <div key={objeto.id}>
-                    <p>{objeto.item}</p>
+       <div className="bloco-principal">
+            <div className="bloco-produtos">
+            {listaProdutos.map((produto)=>
+                <div key={produto.id}>
+                    <img src={produto.imagem}></img>
+                    <p>{produto.item}</p>
+                    <p>{produto.preco}</p>
+                    <button onClick={() => adicionarProduto(produto)} >Comprar</button>
                 </div>
                 )
             }
+            </div>
+            <div className="bloco-pedidos">
+                <p>Meus Pedidos</p>
+                {
+                    ListaPedidos.map((produto)=>
+                    <table>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Preço</th>
+                    </tr>
+                    <tr>
+                      <td>{produto.id}</td>
+                      <td>{produto.preco}</td>
+                    </tr>
+                  </table>
+                  )   
+                }
+            </div>
        </div>
     );
 }
