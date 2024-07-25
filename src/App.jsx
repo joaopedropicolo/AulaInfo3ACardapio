@@ -27,6 +27,18 @@ const [listaProdutos, setProdutos] = useState([
     imagem: "https://helenalunardelli.com.br/wp-content/uploads/2013/02/sucos.jpg",
     preco: "R$ 8,99"
     },
+    {
+    id: 5,
+    item: "Cachorro-Quente",
+    imagem: "https://st3.depositphotos.com/10378406/13512/i/450/depositphotos_135128308-stock-photo-colorful-hot-dog-illustration-isolated.jpg",
+    preco: "R$ 7,99"
+    },
+    {
+    id: 6,
+    item: "Guaraná Antarctica 350ml",
+    imagem: "https://cdn.awsli.com.br/2610/2610989/produto/233533781/guarana-antarctica-lata-original-350ml-j4msuy0uu6.png",
+    preco: "R$ 4,99"
+    }
 ]);
 
 const [ListaPedidos, setListaPedidos] = useState([])
@@ -74,7 +86,7 @@ const remover = (id) => {
                     <img src={produto.imagem}></img>
                     <p>{produto.item}</p>
                     <p>{produto.preco}</p>
-                    <button onClick={() => adicionarProduto(produto)} >Comprar</button>
+                    <button onClick={() => adicionarProduto(produto)} ><ion-icon name="add-circle-outline"></ion-icon> Comprar</button>
                 </div>
                 )
             }
@@ -94,7 +106,7 @@ const remover = (id) => {
                 <tr key={produto.id}>
                     <td>{produto.item}</td>
                     <td>{produto.preco}</td>
-                    <td><button onClick={() => remover(index)}>X</button></td>
+                    <td><button onClick={() => remover(index)}><ion-icon name="close-circle-outline"></ion-icon></button></td>
                 </tr>
             )
         }

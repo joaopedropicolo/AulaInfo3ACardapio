@@ -79,4 +79,9 @@ button{
 }
 button:hover{
     cursor: pointer;
+    transition: 0.5s;
+    background: rgb(102, 0, 0);
+}
+ion-icon{
+    font-size: 20px;
 }
