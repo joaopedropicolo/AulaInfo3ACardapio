@@ -1,9 +1,7 @@
 import { useState } from "react";
 import "../src/globals.css";
-import Header from "./componentes/Hearder";
 
 export default function App() {
-
 const [listaProdutos, setProdutos] = useState([
     {
     id: 1,
@@ -32,11 +30,42 @@ const [listaProdutos, setProdutos] = useState([
 ]);
 
 const [ListaPedidos, setListaPedidos] = useState([])
-
 const adicionarProduto = (produto) => {
     setListaPedidos([...ListaPedidos, produto]);
+    Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Pedido adicionado!",
+        showConfirmButton: false,
+        timer: 1100
+      });
 }
-console.table(ListaPedidos)
+const remover = (id) => {
+    const novaLista = ListaPedidos.filter(
+        (pedidos, index) => {
+            if (index !== id) {
+                return pedidos
+            } else {
+                return null;
+            }
+        }
+    )
+    Swal.fire({
+        icon: "warning",
+        title: "Tem certeza que quer remover o pedido?",
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: "Cancelar",
+        denyButtonText: `Remover`
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire("Ação Cancelada!", "", "success");
+        } else if (result.isDenied) {
+            Swal.fire("Pedido Removido!", "", "success");
+            setListaPedidos(novaLista);
+        }
+    });
+}
     return (
        <div className="bloco-principal">
             <div className="bloco-produtos">
@@ -51,22 +80,27 @@ console.table(ListaPedidos)
             }
             </div>
             <div className="bloco-pedidos">
-                <p>Meus Pedidos</p>
-                {
-                    ListaPedidos.map((produto)=>
-                    <table>
-                    <tr>
-                      <th>Nome</th>
-                      <th>Preço</th>
-                    </tr>
-                    <tr>
-                      <td>{produto.id}</td>
-                      <td>{produto.preco}</td>
-                    </tr>
-                  </table>
-                  )   
-                }
-            </div>
-       </div>
+    <p>Meus Pedidos</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Preço</th>
+            </tr>
+        </thead>
+        <tbody>
+            {
+            ListaPedidos.map((produto, index) =>
+                <tr key={produto.id}>
+                    <td>{produto.item}</td>
+                    <td>{produto.preco}</td>
+                    <td><button onClick={() => remover(index)}>X</button></td>
+                </tr>
+            )
+        }
+            </tbody>
+        </table>
+    </div>
+</div>
     );
 }
