@@ -44,8 +44,10 @@ const [listaProdutos, setProdutos] = useState([
 
 const SomaPreco = () => {
     let SomaTotal = ListaPedidos.reduce((total, produto) => total + produto.preco, 0);
-    document.getElementById("ValorTotal").innerHTML = "Lista De Pedidos" + "<br> <br>" + "Valor Total: R$" + SomaTotal + ",00";
+    document.getElementById("ValorTotal").innerHTML = "Lista De Pedidos" + "<br> <br>" + "Valor Total: R$ " + SomaTotal + ",00";
     setTotalPreco(SomaTotal);
+    console.log("Soma realizada.")
+    console.log("Soma total = " + SomaTotal)
   };
 const [ListaPedidos, setListaPedidos] = useState([])
 const adicionarProduto = (produto) => {
@@ -58,6 +60,7 @@ const adicionarProduto = (produto) => {
         timer: 1100
       });
       SomaPreco();
+      console.log("Produto adicionado")
 }
 const remover = (id) => {
     const novaLista = ListaPedidos.filter(
@@ -102,6 +105,7 @@ const finalizarCompra = () => {
         if (result.dismiss === Swal.DismissReason.timer) {
         }
       });
+      console.log("Erro de lista vazia.")
     } else {
         Swal.fire({
             icon: "warning",
@@ -121,10 +125,12 @@ const finalizarCompra = () => {
                   });
                   setListaPedidos([])
                   SomaPreco();
+                  console.log("Finalizar compra realizada com sucesso.")
             } else if (result.isDenied) {
                 Swal.fire("Ação cacelada!", "", "success");
                 setListaPedidos(novaLista);
                 SomaPreco();
+                console.log("Finalizar pedido cancelado.")
             }
         });
     }
